@@ -15,20 +15,20 @@
 // TODO geoname caching
 
 /*
- http://ws.geonames.org/findNearbyPlaceName?lat=47.3&lng=9
+ http://ws.geonames.org/findNearbyPlaceName?lat=40.660262&lng=-73.991718
  
  <?xml version="1.0" encoding="UTF-8" standalone="no"?>
  <geonames>
  <geoname>
- <name>Atzmännig</name>
- <lat>47.287633</lat>
- <lng>8.988454</lng>
- <geonameId>6559633</geonameId>
- <countryCode>CH</countryCode>
- <countryName>Switzerland</countryName>
+ <name>Park Slope</name>
+ <lat>40.6701033</lat>
+ <lng>-73.9859723</lng>
+ <geonameId>5130561</geonameId>
+ <countryCode>US</countryCode>
+ <countryName>United States</countryName>
  <fcl>P</fcl>
- <fcode>PPL</fcode>
- <distance>1.6276</distance>
+ <fcode>PPLX</fcode>
+ <distance>1.2007</distance>
  </geoname>
  </geonames>
  

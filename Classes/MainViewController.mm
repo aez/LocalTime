@@ -121,13 +121,6 @@
 		float lon = _location.coordinate.longitude;
 		float lat = _location.coordinate.latitude;
 		
-		/* XXX DEBUG
-		 // New York
-		 lon = -74.00628;
-		 lat = 40.726499;
-		 //*/
-		
-		NSCalendar *currentCalendar = [NSCalendar currentCalendar];
 		NSCalendar *gmtCalendar = [NSCalendar currentCalendar];
 		[gmtCalendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
 		NSDateComponents *d = [gmtCalendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:[NSDate date]];
@@ -179,12 +172,6 @@
 	if(_location) {
 		float lon = _location.coordinate.longitude;
 		float lat = _location.coordinate.latitude;
-		
-		/* XXX DEBUG
-		 // New York
-		lon = -74.00628;
-		lat = 40.726499;
-		//*/
 		
 		NSDate *date = [NSDate date];
 		NSDate *localDate = [date localTimeForLongitude:lon latitude:lat];

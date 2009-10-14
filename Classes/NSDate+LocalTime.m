@@ -3,7 +3,7 @@
 //  Local Time
 //
 //  Created by Andy Zeldis on 6/8/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
+//  Copyright 2008 Andy Zeldis. All rights reserved.
 //
 
 #import "NSDate+LocalTime.h"

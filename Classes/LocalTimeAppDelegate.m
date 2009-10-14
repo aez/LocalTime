@@ -3,7 +3,7 @@
 //  Local Time
 //
 //  Created by Andy Zeldis on 6/8/08.
-//  Copyright __MyCompanyName__ 2008. All rights reserved.
+//  Copyright Andy Zeldis 2008. All rights reserved.
 //
 
 #import "LocalTimeAppDelegate.h"

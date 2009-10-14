@@ -15,6 +15,8 @@
 		289233AE0DB2D0DB0083E9F9 /* MainViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 289233A90DB2D0DB0083E9F9 /* MainViewController.mm */; };
 		E41CFA110F9194950015F18D /* sunriseset.c in Sources */ = {isa = PBXBuildFile; fileRef = E472A1790DFC3E5000967275 /* sunriseset.c */; };
 		E45AB0770F891B8E001BD55F /* AZGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E45AB0760F891B8E001BD55F /* AZGeocoder.m */; };
+		E46A890E1085FDAC0033DD17 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		E46A89611085FEF30033DD17 /* LocalTimeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E46A88E91085FC8E0033DD17 /* LocalTimeTest.m */; };
 		E472A1280DFC2D8400967275 /* NSDate+LocalTime.m in Sources */ = {isa = PBXBuildFile; fileRef = E472A1270DFC2D8400967275 /* NSDate+LocalTime.m */; };
 		E472A1A50DFC428400967275 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E472A1A30DFC428400967275 /* CoreGraphics.framework */; };
 		E472A1A60DFC428400967275 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E472A1A40DFC428400967275 /* QuartzCore.framework */; };
@@ -36,6 +38,10 @@
 		E41CFA6C0F924D730015F18D /* test.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = test.mm; sourceTree = "<group>"; };
 		E45AB0750F891B8E001BD55F /* AZGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZGeocoder.h; path = Classes/AZGeocoder.h; sourceTree = "<group>"; };
 		E45AB0760F891B8E001BD55F /* AZGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZGeocoder.m; path = Classes/AZGeocoder.m; sourceTree = "<group>"; };
+		E46A88E81085FC8E0033DD17 /* LocalTimeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalTimeTest.h; path = Test/LocalTimeTest.h; sourceTree = "<group>"; };
+		E46A88E91085FC8E0033DD17 /* LocalTimeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocalTimeTest.m; path = Test/LocalTimeTest.m; sourceTree = "<group>"; };
+		E46A89091085FD890033DD17 /* LogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = LogicTests.octest; path = "build/Debug-iphonesimulator/LogicTests.octest"; sourceTree = "<group>"; };
+		E46A890A1085FD890033DD17 /* LogicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicTests-Info.plist"; sourceTree = "<group>"; };
 		E472A1260DFC2D8400967275 /* NSDate+LocalTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+LocalTime.h"; path = "Classes/NSDate+LocalTime.h"; sourceTree = "<group>"; };
 		E472A1270DFC2D8400967275 /* NSDate+LocalTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+LocalTime.m"; path = "Classes/NSDate+LocalTime.m"; sourceTree = "<group>"; };
 		E472A1780DFC3E5000967275 /* sunriseset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sunriseset.h; sourceTree = "<group>"; };
@@ -58,6 +64,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E46A89061085FD890033DD17 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -75,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* Local Time.app */,
+				E46A89091085FD890033DD17 /* LogicTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,10 +109,12 @@
 				080E96DDFE201D6D7F000001 /* Application Controllers */,
 				E45AB07A0F891B9C001BD55F /* util */,
 				E472A2220DFC4BDA00967275 /* Time Calculation */,
+				E46A89551085FEB00033DD17 /* Tests */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				E46A890A1085FD890033DD17 /* LogicTests-Info.plist */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -143,6 +159,15 @@
 			name = util;
 			sourceTree = "<group>";
 		};
+		E46A89551085FEB00033DD17 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				E46A88E81085FC8E0033DD17 /* LocalTimeTest.h */,
+				E46A88E91085FC8E0033DD17 /* LocalTimeTest.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
 		E472A2220DFC4BDA00967275 /* Time Calculation */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +199,24 @@
 			productReference = 1D6058910D05DD3D006BFB54 /* Local Time.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E46A89081085FD890033DD17 /* LogicTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E46A890D1085FD8A0033DD17 /* Build configuration list for PBXNativeTarget "LogicTests" */;
+			buildPhases = (
+				E46A89041085FD890033DD17 /* Resources */,
+				E46A89051085FD890033DD17 /* Sources */,
+				E46A89061085FD890033DD17 /* Frameworks */,
+				E46A89071085FD890033DD17 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LogicTests;
+			productName = LogicTests;
+			productReference = E46A89091085FD890033DD17 /* LogicTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -194,6 +237,7 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* Local Time */,
+				E46A89081085FD890033DD17 /* LogicTests */,
 			);
 		};
 /* End PBXProject section */
@@ -207,7 +251,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E46A89041085FD890033DD17 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E46A89071085FD890033DD17 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
@@ -220,6 +287,15 @@
 				E472A1280DFC2D8400967275 /* NSDate+LocalTime.m in Sources */,
 				E45AB0770F891B8E001BD55F /* AZGeocoder.m in Sources */,
 				E41CFA110F9194950015F18D /* sunriseset.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E46A89051085FD890033DD17 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E46A890E1085FDAC0033DD17 /* main.m in Sources */,
+				E46A89611085FEF30033DD17 /* LocalTimeTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +338,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.0;
+				SDKROOT = iphonesimulator3.1;
 			};
 			name = Debug;
 		};
@@ -275,7 +351,63 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.0;
+				SDKROOT = iphonesimulator3.1;
+			};
+			name = Release;
+		};
+		E46A890B1085FD8A0033DD17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = "LogicTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					SenTestingKit,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = LogicTests;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		E46A890C1085FD8A0033DD17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				INFOPLIST_FILE = "LogicTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					SenTestingKit,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = LogicTests;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -296,6 +428,15 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E46A890D1085FD8A0033DD17 /* Build configuration list for PBXNativeTarget "LogicTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E46A890B1085FD8A0033DD17 /* Debug */,
+				E46A890C1085FD8A0033DD17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

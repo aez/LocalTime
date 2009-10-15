@@ -24,7 +24,6 @@
 @property(readonly) NSString *placeName;
 
 - (void)findNameForLocation:(CLLocation *)location;
-
 - (void)callWebService:(NSURLRequest *)request delegate:(id)delegate;
 
 @end

@@ -62,15 +62,13 @@
 - (void)webServiceResponse:(NSData *)data;
 {
 	NSString *s = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-	NSLog(@"%@\n", s);
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
 	[parser setDelegate:self];
 	[parser parse];
 }
 
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-	
-	NSLog(@"el: %@", elementName);
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+{
 	if ( [elementName isEqualToString:@"name"]) {
 		currentStringValue = [[NSMutableString alloc] init];
 	}
@@ -80,18 +78,14 @@
     [currentStringValue appendString:string];
 }
 
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-	
-	NSLog(@"/el: %@ (%@)", elementName, currentStringValue);
-    if([elementName isEqualToString:@"name"]) {
-		NSLog(@"got place %@", currentStringValue);
-		
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+{
+	if([elementName isEqualToString:@"name"]) {
 		[_placeName release];
 		_placeName = [currentStringValue copy];
-		
-		[currentStringValue release];
-		currentStringValue = nil;
 	}
+	[currentStringValue release];
+	currentStringValue = nil;
 }
 
 
@@ -103,17 +97,11 @@
 	NSURLConnection *conn = [NSURLConnection connectionWithRequest:request delegate:self];
 	_data = [[NSMutableData data] retain];
 	[conn start];
-	NSLog(@"call %@", request);
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
-{
-	NSLog(@"response %@", response);
-}
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
 {
-	NSLog(@"failed %@", error);
 	[self.delegate geocoder:self didFailWithError:error];
 }
 

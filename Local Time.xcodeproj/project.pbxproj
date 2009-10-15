@@ -40,7 +40,7 @@
 		E45AB0760F891B8E001BD55F /* AZGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZGeocoder.m; path = Classes/AZGeocoder.m; sourceTree = "<group>"; };
 		E46A88E81085FC8E0033DD17 /* LocalTimeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalTimeTest.h; path = Test/LocalTimeTest.h; sourceTree = "<group>"; };
 		E46A88E91085FC8E0033DD17 /* LocalTimeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocalTimeTest.m; path = Test/LocalTimeTest.m; sourceTree = "<group>"; };
-		E46A89091085FD890033DD17 /* LogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = LogicTests.octest; path = "build/Debug-iphonesimulator/LogicTests.octest"; sourceTree = "<group>"; };
+		E46A89091085FD890033DD17 /* LogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E46A890A1085FD890033DD17 /* LogicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicTests-Info.plist"; sourceTree = "<group>"; };
 		E472A1260DFC2D8400967275 /* NSDate+LocalTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+LocalTime.h"; path = "Classes/NSDate+LocalTime.h"; sourceTree = "<group>"; };
 		E472A1270DFC2D8400967275 /* NSDate+LocalTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+LocalTime.m"; path = "Classes/NSDate+LocalTime.m"; sourceTree = "<group>"; };

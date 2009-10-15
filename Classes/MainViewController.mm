@@ -121,58 +121,6 @@
 		float lon = _location.coordinate.longitude;
 		float lat = _location.coordinate.latitude;
 		
-		NSCalendar *gmtCalendar = [NSCalendar currentCalendar];
-		[gmtCalendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-		NSDateComponents *d = [gmtCalendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:[NSDate date]];
-		
-		double rise_hour, set_hour;
-		sun_rise_set([d year], [d month], [d day], lon, lat, &rise_hour, &set_hour);
-		double noon_hour = (rise_hour + set_hour) / 2;
-		
-		// TODO conversion from gmt time zone isn't working properly
-		[d setHour: (NSInteger) rise_hour];
-		[d setMinute: (NSInteger) (rise_hour*60) % 60];
-		NSDate *gmtRiseDate = [gmtCalendar dateFromComponents:d];
-		NSDate *riseDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[gmtRiseDate timeIntervalSinceReferenceDate]];
-		[d setHour: (NSInteger) set_hour];
-		[d setMinute: (NSInteger) (set_hour*60) % 60];
-		NSDate *setDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[[gmtCalendar dateFromComponents:d] timeIntervalSinceReferenceDate]];
-		[d setHour: (NSInteger) noon_hour];
-		[d setMinute: (NSInteger) (noon_hour*60) % 60];
-		NSDate *noonDate = [gmtCalendar dateFromComponents:d];
-		
-		NSLog(@"noon: %@", noonDate);
-		
-		float dayLength = [noonDate dayLengthForLongitude:lon latitude:lat];
-		
-		timeLabel.text = [[_timeFormatter stringFromDate:noonDate] lowercaseString];
-		// TODO location name from Geocoder
-		if(YES) {
-			infoLabel.text = [_dateFormatter stringFromDate:noonDate];
-		} else {
-			infoLabel.text = [NSString stringWithFormat:@"%@ %@",
-							  [_dateFormatter stringFromDate:noonDate],
-							  @"Brooklyn, NY"];
-		}
-		officialTimeLabel.text = [NSString stringWithFormat:@"Official time %@", [_timeFormatter stringFromDate:[NSDate date]]];
-		sunriseLabel.text = [NSString stringWithFormat:@"Sunrise %@", [_timeFormatter stringFromDate:noonDate]];
-		sunsetLabel.text = [NSString stringWithFormat:@"Sunset %@", [_timeFormatter stringFromDate:setDate]];
-		dayScaleLabel.text = [NSString stringWithFormat:@"%2d hours %2d minutes in a day", (int)dayLength, (int)(dayLength * 100) % 60];
-	} else {
-		timeLabel.text = @"Loading…";
-		officialTimeLabel.text = @"";
-		sunriseLabel.text = @"";
-		sunsetLabel.text = @"";
-		dayScaleLabel.text = @"";
-	}
-}
-
-- (void)updateDisplay_withTimestretching;
-{
-	if(_location) {
-		float lon = _location.coordinate.longitude;
-		float lat = _location.coordinate.latitude;
-		
 		NSDate *date = [NSDate date];
 		NSDate *localDate = [date localTimeForLongitude:lon latitude:lat];
 		timeLabel.text = [[_timeFormatter stringFromDate:localDate] lowercaseString];

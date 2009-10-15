@@ -29,7 +29,7 @@
 	_timeFormatter.timeStyle = NSDateFormatterShortStyle;
 	
 	_dateFormatter = [[NSDateFormatter alloc] init];
-	_dateFormatter.dateStyle = NSDateFormatterShortStyle;
+	_dateFormatter.dateStyle = NSDateFormatterLongStyle;
 	_dateFormatter.timeStyle = NSDateFormatterNoStyle;
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -44,9 +44,6 @@
 
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 	
-    ticker = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(tick:) userInfo:nil repeats:YES];
-	[self tick:nil];
-	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 	[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 	
@@ -54,6 +51,9 @@
 	geocoder = [[AZGeocoder alloc] init];
 	geocoder.delegate = self;
 	[geocoder findNameForLocation:_location];
+
+    ticker = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(tick:) userInfo:nil repeats:YES];
+	[self updateDisplay];
 }
 
 - (void)deviceOrientationDidChange:(NSNotification *)notification;
@@ -141,15 +141,8 @@
 		NSDate *date = [NSDate date];
 		NSDate *localDate = [date localTimeForLongitude:lon latitude:lat];
 		timeLabel.text = [[_timeFormatter stringFromDate:localDate] lowercaseString];
-		
-		// TODO location name from Geocoder
-		NSMutableString *infoString = [NSMutableString stringWithString:[_dateFormatter stringFromDate:localDate]];
-		if(geocoder.placeName) {
-			[infoString appendString:@" "];
-			//[infoString appendString:@"Brooklyn, NY"];
-			[infoString appendString:geocoder.placeName];
-		}
-		infoLabel.text = infoString;
+		dateLabel.text = [_dateFormatter stringFromDate:localDate];
+		locationLabel.text = geocoder.placeName ? geocoder.placeName : @"";
 		
 		NSDate *sunrise = [date sunriseAtLatitude:lat longitude:lon];
 		NSDate *sunset = [date sunsetAtLatitude:lat longitude:lon];
@@ -160,6 +153,8 @@
 		dayScaleLabel.text = [NSString stringWithFormat:@"%2d hours %2d minutes in a day", (int)dayLength, (int)(dayLength * 100) % 60];
 	} else {
 		timeLabel.text = @"Loading…";
+		dateLabel.text = @"";
+		locationLabel.text = @"";
 		officialTimeLabel.text = @"";
 		sunriseLabel.text = @"";
 		sunsetLabel.text = @"";

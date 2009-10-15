@@ -36,7 +36,8 @@
 
 @implementation AZGeocoder
 
-@synthesize delegate = _delegate;
+@synthesize delegate=_delegate;
+@synthesize placeName=_placeName;
 
 - (id)init;
 {
@@ -48,21 +49,15 @@
 
 - (void)findNameForLocation:(CLLocation *)location;
 {
-	// TODO implement
-}
-
-- (void)setLocation:(CLLocation *)loc;
-{
-	NSString *urlString = [NSString stringWithFormat:@"http://ws.geonames.org/findNearbyPlaceName?lat=%.1f&lng=%.1f&style=short", 
-						   loc.coordinate.latitude, loc.coordinate.longitude];
+	_location = location;
+	NSString *urlString = [NSString stringWithFormat:@"http://ws.geonames.org/findNearbyPlaceName?lat=%.4f&lng=%.4f&style=short", 
+						   location.coordinate.latitude, location.coordinate.longitude];
 	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
 	[self callWebService:request delegate:self];
 }
 
 
 #pragma mark AJAX
-
-static NSMutableString *currentStringValue;
 
 - (void)webServiceResponse:(NSData *)data;
 {
@@ -91,6 +86,9 @@ static NSMutableString *currentStringValue;
     if([elementName isEqualToString:@"name"]) {
 		NSLog(@"got place %@", currentStringValue);
 		
+		[_placeName release];
+		_placeName = [currentStringValue copy];
+		
 		[currentStringValue release];
 		currentStringValue = nil;
 	}
@@ -102,7 +100,6 @@ static NSMutableString *currentStringValue;
 
 - (void)callWebService:(NSURLRequest *)request delegate:(id)delegate;
 {
-	_delegate = delegate;
 	NSURLConnection *conn = [NSURLConnection connectionWithRequest:request delegate:self];
 	_data = [[NSMutableData data] retain];
 	[conn start];
@@ -117,6 +114,7 @@ static NSMutableString *currentStringValue;
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
 {
 	NSLog(@"failed %@", error);
+	[self.delegate geocoder:self didFailWithError:error];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
@@ -127,6 +125,7 @@ static NSMutableString *currentStringValue;
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection;
 {
 	[self webServiceResponse:_data];
+	[self.delegate geocoder:self didFindName:_placeName forLocation:_location];
 }
 
 - (void)dealloc {

@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import "AZGeocoder.h"
+
 @class CLLocation;
 
-@interface MainViewController : UIViewController {
+@interface MainViewController : UIViewController <AZGeocoderDelegate> {
     IBOutlet UILabel *infoLabel;
     IBOutlet UILabel *timeLabel;
     IBOutlet UILabel *officialTimeLabel;
@@ -24,7 +26,7 @@
     NSTimer *ticker;
 	
 	CLLocation *_location;
-	NSString *_placeName;
+	AZGeocoder *geocoder;
 }
 
 //typedef CFStringRef (*ABActionGetPropertyCallback)(void);

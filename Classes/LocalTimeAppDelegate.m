@@ -11,7 +11,6 @@
 
 @implementation LocalTimeAppDelegate
 
-
 @synthesize window;
 @synthesize mainViewController;
 
@@ -24,7 +23,6 @@
 	[window addSubview:mainViewController.view];
 	[window makeKeyAndVisible];
 }
-
 
 - (void)locationManager:(CLLocationManager *)manager
 	didUpdateToLocation:(CLLocation *)newLocation
@@ -40,14 +38,12 @@
 	[[NSUserDefaults standardUserDefaults] setDouble:newLocation.coordinate.longitude forKey:@"longitude"];
 }
 
-- (void)locationManager:(CLLocationManager *)manager
-       didFailWithError:(NSError *)error;
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error;
 {
     NSLog(@"location failed: %@", error);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't determine location" message:[error description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
 }
-
 
 - (void)dealloc {
 	[locationManager release];

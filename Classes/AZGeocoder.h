@@ -14,10 +14,14 @@
 @interface AZGeocoder : NSObject {
 @private
 	id _delegate;
+	CLLocation *_location;
 	NSMutableData *_data;
+	NSMutableString *currentStringValue;
+	NSString *_placeName;
 }
 
 @property(nonatomic, assign) id<AZGeocoderDelegate> delegate;
+@property(readonly) NSString *placeName;
 
 - (void)findNameForLocation:(CLLocation *)location;
 

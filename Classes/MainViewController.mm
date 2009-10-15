@@ -49,6 +49,11 @@
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 	[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+	
+	// TODO update geocoded location, but not as often as updating time
+	geocoder = [[AZGeocoder alloc] init];
+	geocoder.delegate = self;
+	[geocoder findNameForLocation:_location];
 }
 
 - (void)deviceOrientationDidChange:(NSNotification *)notification;
@@ -101,6 +106,17 @@
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
+- (void)geocoder:(AZGeocoder *)geocoder didFindName:(NSString *)name forLocation:(CLLocation *)location;
+{
+	[self updateDisplay];
+}
+
+- (void)geocoder:(AZGeocoder *)geocoder didFailWithError:(NSError *)error;
+{
+	// TODO implement
+}
+
 - (void)setLocation:(CLLocation *)location;
 {
 	[_location autorelease];
@@ -108,6 +124,7 @@
 	[_location retain];
 	
 	[self updateDisplay];
+	[geocoder findNameForLocation:_location];
 }
 
 - (void)tick:(NSTimer *)timer;
@@ -127,9 +144,10 @@
 		
 		// TODO location name from Geocoder
 		NSMutableString *infoString = [NSMutableString stringWithString:[_dateFormatter stringFromDate:localDate]];
-		if(YES) {
+		if(geocoder.placeName) {
 			[infoString appendString:@" "];
-			[infoString appendString:@"Brooklyn, NY"];
+			//[infoString appendString:@"Brooklyn, NY"];
+			[infoString appendString:geocoder.placeName];
 		}
 		infoLabel.text = infoString;
 		

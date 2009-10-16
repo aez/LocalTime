@@ -146,7 +146,6 @@
 		
 		NSDate *sunrise = [date sunriseAtLatitude:lat longitude:lon];
 		NSDate *sunset = [date sunsetAtLatitude:lat longitude:lon];
-		officialTimeLabel.text = [NSString stringWithFormat:@"Official time %@", [_timeFormatter stringFromDate:date]];
 		sunriseLabel.text = [NSString stringWithFormat:@"Sunrise %@", [_timeFormatter stringFromDate:sunrise]];
 		sunsetLabel.text = [NSString stringWithFormat:@"Sunset %@", [_timeFormatter stringFromDate:sunset]];
 		float dayLength = [localDate dayLengthForLongitude:lon latitude:lat];
@@ -155,7 +154,6 @@
 		timeLabel.text = @"Loading…";
 		dateLabel.text = @"";
 		locationLabel.text = @"";
-		officialTimeLabel.text = @"";
 		sunriseLabel.text = @"";
 		sunsetLabel.text = @"";
 		dayScaleLabel.text = @"";

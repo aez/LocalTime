@@ -57,7 +57,7 @@
 						<object class="IBUILabel" id="63031535">
 							<reference key="NSNextResponder" ref="369779035"/>
 							<int key="NSvFlags">266</int>
-							<string key="NSFrame">{{20, 299}, {280, 21}}</string>
+							<string key="NSFrame">{{20, 342}, {280, 21}}</string>
 							<reference key="NSSuperview" ref="369779035"/>
 							<bool key="IBUIOpaque">NO</bool>
 							<bool key="IBUIClipsSubviews">YES</bool>
@@ -79,7 +79,7 @@
 						<object class="IBUILabel" id="640070515">
 							<reference key="NSNextResponder" ref="369779035"/>
 							<int key="NSvFlags">266</int>
-							<string key="NSFrame">{{20, 384}, {280, 21}}</string>
+							<string key="NSFrame">{{20, 314}, {280, 21}}</string>
 							<reference key="NSSuperview" ref="369779035"/>
 							<bool key="IBUIOpaque">NO</bool>
 							<bool key="IBUIClipsSubviews">YES</bool>
@@ -94,28 +94,10 @@
 							<int key="IBUIBaselineAdjustment">1</int>
 							<float key="IBUIMinimumFontSize">1.000000e+01</float>
 						</object>
-						<object class="IBUILabel" id="266796165">
-							<reference key="NSNextResponder" ref="369779035"/>
-							<int key="NSvFlags">266</int>
-							<string key="NSFrame">{{20, 328}, {280, 20}}</string>
-							<reference key="NSSuperview" ref="369779035"/>
-							<bool key="IBUIOpaque">NO</bool>
-							<bool key="IBUIClipsSubviews">YES</bool>
-							<bool key="IBUIUserInteractionEnabled">NO</bool>
-							<string key="IBUIText">Official time 8:53 pm (DST)</string>
-							<reference key="IBUIFont" ref="492581731"/>
-							<object class="NSColor" key="IBUITextColor">
-								<int key="NSColorSpace">1</int>
-								<bytes key="NSRGB">MC42MDAwMTUyOCAwLjYwMDAxNTI4IDAuNjAwMDE1MjgAA</bytes>
-							</object>
-							<nil key="IBUIHighlightedColor"/>
-							<int key="IBUIBaselineAdjustment">1</int>
-							<float key="IBUIMinimumFontSize">1.000000e+01</float>
-						</object>
 						<object class="IBUILabel" id="1000667769">
 							<reference key="NSNextResponder" ref="369779035"/>
 							<int key="NSvFlags">266</int>
-							<string key="NSFrame">{{20, 356}, {280, 21}}</string>
+							<string key="NSFrame">{{20, 286}, {280, 21}}</string>
 							<reference key="NSSuperview" ref="369779035"/>
 							<bool key="IBUIOpaque">NO</bool>
 							<bool key="IBUIClipsSubviews">YES</bool>
@@ -251,7 +233,7 @@
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="IBUIText">Time as you feel it.</string>
+						<string key="IBUIText">What time does it feel like?</string>
 						<object class="NSFont" key="IBUIFont" id="636628517">
 							<string key="NSName">Helvetica</string>
 							<double key="NSSize">1.400000e+01</double>
@@ -300,8 +282,7 @@
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string type="base64-UTF8" key="IBUIText">QmVmb3JlIHJhaWxyb2FkcywgZWFjaCBjaXR5IGhhZCBpdHMgb3duIHRpbWUuCkJlZm9yZSBjbG9ja3Ms
-IHdlIHRvbGQgdGltZSBieSB0aGUgc3VuLgpUaW1lIG1vdmVzIGFjY29yZGluZyB0byB0aGUgc2Vhc29u
-Lg</string>
+IHdlIHRvbGQgdGltZSBieSB0aGUgc3VuLgpUaW1lIGlzIHNlYXNvbmFsLg</string>
 						<reference key="IBUIFont" ref="636628517"/>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">1</int>
@@ -452,14 +433,6 @@ bWVyLgo</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">officialTimeLabel</string>
-						<reference key="source" ref="1022373728"/>
-						<reference key="destination" ref="266796165"/>
-					</object>
-					<int key="connectionID">110</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">sunriseLabel</string>
 						<reference key="source" ref="1022373728"/>
 						<reference key="destination" ref="1000667769"/>
@@ -567,12 +540,11 @@ bWVyLgo</string>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="1000667769"/>
-							<reference ref="266796165"/>
 							<reference ref="640070515"/>
-							<reference ref="63031535"/>
 							<reference ref="978722338"/>
 							<reference ref="141464321"/>
 							<reference ref="153587046"/>
+							<reference ref="63031535"/>
 						</object>
 						<reference key="parent" ref="1022373728"/>
 						<string key="objectName">Portrait View</string>
@@ -580,11 +552,6 @@ bWVyLgo</string>
 					<object class="IBObjectRecord">
 						<int key="objectID">102</int>
 						<reference key="object" ref="1000667769"/>
-						<reference key="parent" ref="369779035"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">101</int>
-						<reference key="object" ref="266796165"/>
 						<reference key="parent" ref="369779035"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -678,7 +645,6 @@ bWVyLgo</string>
 					<string>-1.CustomClassName</string>
 					<string>-2.CustomClassName</string>
 					<string>100.IBPluginDependency</string>
-					<string>101.IBPluginDependency</string>
 					<string>102.IBPluginDependency</string>
 					<string>104.IBPluginDependency</string>
 					<string>105.IBPluginDependency</string>
@@ -712,7 +678,6 @@ bWVyLgo</string>
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>UIApplication</string>
 					<string>UIResponder</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -847,7 +812,6 @@ bWVyLgo</string>
 							<string>dayScaleLabel</string>
 							<string>infoView</string>
 							<string>locationLabel</string>
-							<string>officialTimeLabel</string>
 							<string>sunriseLabel</string>
 							<string>sunsetLabel</string>
 							<string>timeLabel</string>
@@ -857,7 +821,6 @@ bWVyLgo</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UIView</string>
-							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UILabel</string>

@@ -16,7 +16,6 @@
     IBOutlet UILabel *timeLabel;
     IBOutlet UILabel *dateLabel;
 	IBOutlet UILabel *locationLabel;
-    IBOutlet UILabel *officialTimeLabel;
     IBOutlet UILabel *sunriseLabel;
     IBOutlet UILabel *sunsetLabel;
 	IBOutlet UILabel *dayScaleLabel;

@@ -17,6 +17,8 @@
 		E45AB0770F891B8E001BD55F /* AZGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E45AB0760F891B8E001BD55F /* AZGeocoder.m */; };
 		E46A890E1085FDAC0033DD17 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		E46A89611085FEF30033DD17 /* LocalTimeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E46A88E91085FC8E0033DD17 /* LocalTimeTest.m */; };
+		E46A8A6D108891080033DD17 /* NSDate+LocalTime.m in Sources */ = {isa = PBXBuildFile; fileRef = E472A1270DFC2D8400967275 /* NSDate+LocalTime.m */; };
+		E46A8A6E1088910E0033DD17 /* sunriseset.c in Sources */ = {isa = PBXBuildFile; fileRef = E472A1790DFC3E5000967275 /* sunriseset.c */; };
 		E472A1280DFC2D8400967275 /* NSDate+LocalTime.m in Sources */ = {isa = PBXBuildFile; fileRef = E472A1270DFC2D8400967275 /* NSDate+LocalTime.m */; };
 		E472A1A50DFC428400967275 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E472A1A30DFC428400967275 /* CoreGraphics.framework */; };
 		E472A1A60DFC428400967275 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E472A1A40DFC428400967275 /* QuartzCore.framework */; };
@@ -296,6 +298,8 @@
 			files = (
 				E46A890E1085FDAC0033DD17 /* main.m in Sources */,
 				E46A89611085FEF30033DD17 /* LocalTimeTest.m in Sources */,
+				E46A8A6D108891080033DD17 /* NSDate+LocalTime.m in Sources */,
+				E46A8A6E1088910E0033DD17 /* sunriseset.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

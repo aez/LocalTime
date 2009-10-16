@@ -14,5 +14,7 @@
 #import <UIKit/UIKit.h>
 
 @interface LocalTimeTest : SenTestCase {
+	double lat;
+	double lon;
 }
 @end

@@ -144,8 +144,8 @@
 		dateLabel.text = [_dateFormatter stringFromDate:localDate];
 		locationLabel.text = geocoder.placeName ? geocoder.placeName : @"";
 		
-		NSDate *sunrise = [date sunriseAtLatitude:lat longitude:lon];
-		NSDate *sunset = [date sunsetAtLatitude:lat longitude:lon];
+		NSDate *sunrise = [date sunriseAtLongitude:lon latitude:lat];
+		NSDate *sunset = [date sunsetAtLongitude:lon latitude:lat];
 		sunriseLabel.text = [NSString stringWithFormat:@"Sunrise %@", [_timeFormatter stringFromDate:sunrise]];
 		sunsetLabel.text = [NSString stringWithFormat:@"Sunset %@", [_timeFormatter stringFromDate:sunset]];
 		float dayLength = [localDate dayLengthForLongitude:lon latitude:lat];

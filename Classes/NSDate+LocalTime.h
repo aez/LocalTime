@@ -10,8 +10,8 @@
 
 @interface NSDate (Solar)
 
-- (NSDate *)sunriseAtLatitude:(float)latitude longitude:(float)longitude;
-- (NSDate *)sunsetAtLatitude:(float)latitude longitude:(float)longitude;
+- (NSDate *)sunriseAtLongitude:(float)latitude latitude:(float)longitude;
+- (NSDate *)sunsetAtLongitude:(float)latitude latitude:(float)longitude;
 
 @end
 

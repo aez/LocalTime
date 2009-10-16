@@ -19,7 +19,7 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
 
 // TODO local_rise_set
 
-- (NSDate *)sunriseAtLatitude:(float)lat longitude:(float)lon;
+- (NSDate *)sunriseAtLongitude:(float)lat latitude:(float)lon;
 {
 	NSCalendar *gmtCalendar = [NSCalendar currentCalendar];
     [gmtCalendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
@@ -35,7 +35,7 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
 	return gmtDate;
 }
 
-- (NSDate *)sunsetAtLatitude:(float)lat longitude:(float)lon;
+- (NSDate *)sunsetAtLongitude:(float)lat latitude:(float)lon;
 {
 	NSCalendar *utcCalendar = [NSCalendar currentCalendar];
     [utcCalendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];

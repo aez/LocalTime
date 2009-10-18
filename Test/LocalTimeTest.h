@@ -16,5 +16,6 @@
 @interface LocalTimeTest : SenTestCase {
 	double lat;
 	double lon;
+	NSCalendar *calendar;
 }
 @end

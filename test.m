@@ -39,6 +39,7 @@ int test_original()
 	astr_start, astr_end;
 	int    rs, civ, naut, astr;
 	
+	printf("\n");
     //printf( "Longitude (+ is east) and latitude (+ is north) : " );
     //scanf( "%lf %lf", &lon, &lat );
 	// New York
@@ -46,10 +47,8 @@ int test_original()
 	lat = 40.726499;
 	
 	time_t t = time(NULL);
-	struct tm *tm;
-	tm = gmtime(&t);
-	localtime(&t);
-	
+	struct tm *tm = localtime(&t);
+
 	year = 1900 + tm->tm_year;
 	month = 1 + tm->tm_mon;
 	day = tm->tm_mday;
@@ -58,6 +57,8 @@ int test_original()
 	printf("gmtoff: %ld\n", tm->tm_gmtoff);
 	double gmtoff = tm->tm_gmtoff / SECONDS_PER_HOUR;
 	
+	printf("%s", asctime(tm));
+	printf("%d %d %d\n", year, month, day);
 	
 	/*
 	 New York, New York
@@ -66,10 +67,6 @@ int test_original()
 	 Sunrise: 6:22am
 	 Sunset: 7:31pm
 	 */
-	
-	// sunriseset works in units of hours in universal time
-    double riseHour, setHour;
-    sun_rise_set(year, month, day, lon, lat, &riseHour, &setHour);
 	
 	daylen  = day_length(year,month,day,lon,lat);
 	civlen  = day_civil_twilight_length(year,month,day,lon,lat);
@@ -194,14 +191,15 @@ int test_sunriset()
 	return 0;
 }
 
+/*
 int main(void)
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	//test_original();
+	test_original();
 	printf("\n");
 //	test_fullday();
 	test_sunriset();
 	[pool release];
 	return 0;
 }
-
+//*/

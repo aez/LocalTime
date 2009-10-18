@@ -17,6 +17,13 @@
 	// NYC
 	lat = 40.726499;
 	lon = -74.00628;
+	
+	calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+}
+
+- (void)tearDown;
+{
+	[calendar release];
 }
 
 - (void)testSunriseSunset;

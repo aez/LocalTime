@@ -19,6 +19,8 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
 
 // TODO local_rise_set
 
+// FIXME this class is not calculating things correctly
+
 - (NSDate *)sunriseAtLongitude:(float)lat latitude:(float)lon;
 {
 	NSCalendar *gmtCalendar = [NSCalendar currentCalendar];

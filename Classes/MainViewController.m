@@ -11,8 +11,8 @@
 #import <CoreLocation/CoreLocation.h>
 
 
-#import <time.h>
-#import "sunriseset.h"
+#include <time.h>
+#include "sunriseset.h"
 
 // TODO screens for acquiring location, error
 
@@ -132,7 +132,117 @@
 	[self updateDisplay];
 }
 
+static const double SECONDS_PER_HOUR = (60.0*60.0);
+
 - (void)updateDisplay;
+{
+	if(_location) {
+		const double lon = _location.coordinate.longitude;
+		const double lat = _location.coordinate.latitude;
+		
+		int year,month,day;
+		double daylen, civlen, nautlen, astrlen;
+		double rise, set, civ_start, civ_end, naut_start, naut_end,
+		astr_start, astr_end;
+		int    rs, civ, naut, astr;
+		
+		time_t t = time(NULL);
+		struct tm *tm = localtime(&t);
+		
+		year = 1900 + tm->tm_year;
+		month = 1 + tm->tm_mon;
+		day = tm->tm_mday;
+		
+		double gmtoff = tm->tm_gmtoff / SECONDS_PER_HOUR;
+		
+		daylen  = day_length(year,month,day,lon,lat);
+		civlen  = day_civil_twilight_length(year,month,day,lon,lat);
+		nautlen = day_nautical_twilight_length(year,month,day,lon,lat);
+		astrlen = day_astronomical_twilight_length(year,month,day,lon,lat);
+		
+		rs   = sun_rise_set         ( year, month, day, lon, lat, &rise, &set );
+		civ  = civil_twilight       ( year, month, day, lon, lat, &civ_start, &civ_end );
+		naut = nautical_twilight    ( year, month, day, lon, lat, &naut_start, &naut_end );
+		astr = astronomical_twilight( year, month, day, lon, lat, &astr_start, &astr_end );
+		
+		rise += gmtoff;
+		set += gmtoff;
+		naut += gmtoff;
+		astr += gmtoff;
+		
+		//double noon = (rise + set) / 2.0;
+		//printf("noon: %f\n", noon);
+		
+		// TODO handle sun above/below horizon in UI
+		switch( rs )
+		{
+			case 0:
+				//printf( "Sun rises %5.2fh UT, sets %5.2fh UT\n", rise, set );
+				//printf( "Sun rises %s, sets %s\n", h2s(rise), h2s(set) );
+				break;
+			case +1:
+				//printf( "Sun above horizon\n" );
+				break;
+			case -1:
+				//printf( "Sun below horizon\n" );
+				break;
+		}
+		
+		// FIXME don't crash on zero-length day
+		double dayScale = 12.0 / daylen;
+		double nightScale = daylen / 12.0;
+		
+		double hour = tm->tm_hour + tm->tm_min / 60.0;
+		double solarHour;
+		if(hour < rise) {
+			// scaled time since midnight
+			solarHour = hour * nightScale;
+		} else if(hour < set) {
+			// 6:00 AM plus scaled time since sunrise
+			solarHour = 6 + (hour - rise) * dayScale;
+		} else {
+			// 18:00 (6PM) plus scaled time since sunset
+			solarHour = 18 + (hour - set) * nightScale;
+		}
+		
+		tm->tm_hour = (int)solarHour;
+		tm->tm_min = (int)round(solarHour*60) % 60;
+		
+		char s[1024];
+		strftime(s, 1024, "%l:%M %p", tm);
+		timeLabel.text = [[NSString stringWithCString:s encoding:NSUTF8StringEncoding] lowercaseString];
+		strftime(s, 1024, "%A, %b %e %G", tm);
+		dateLabel.text = [NSString stringWithCString:s encoding:NSUTF8StringEncoding];
+		locationLabel.text = geocoder.placeName ? geocoder.placeName : @"";
+
+		tm->tm_hour = (int)rise;
+		tm->tm_min = (int)round(rise*60) % 60;
+		strftime(s, 1024, "%l:%M %p", tm);
+		sunriseLabel.text = [NSString stringWithFormat:@"Sunrise %@", [[NSString stringWithCString:s encoding:NSUTF8StringEncoding] lowercaseString]];
+		tm->tm_hour = (int)set;
+		tm->tm_min = (int)round(set*60) % 60;
+		strftime(s, 1024, "%l:%M %p", tm);
+		sunsetLabel.text = [NSString stringWithFormat:@"Sunset %@", [[NSString stringWithCString:s encoding:NSUTF8StringEncoding] lowercaseString]];
+		
+		int dayLengthHours = (int)daylen;
+		int dayLengthMinutes = (int)round(daylen*60) % 60;
+		if(dayLengthMinutes == 0) {
+			dayScaleLabel.text = [NSString stringWithFormat:@"%d hours %d minutes in a day", dayLengthHours, dayLengthMinutes];
+		} else {
+			dayScaleLabel.text = [NSString stringWithFormat:@"%d hours in a day", dayLengthHours];
+		}
+	} else {
+		timeLabel.text = @"Loading…";
+		dateLabel.text = @"";
+		locationLabel.text = @"";
+		sunriseLabel.text = @"";
+		sunsetLabel.text = @"";
+		dayScaleLabel.text = @"";
+	}
+}
+
+
+- (void)xxxupdateDisplay;
 {
 	if(_location) {
 		float lon = _location.coordinate.longitude;

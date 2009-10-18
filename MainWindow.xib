@@ -139,15 +139,15 @@
 						<object class="IBUILabel" id="141464321">
 							<reference key="NSNextResponder" ref="369779035"/>
 							<int key="NSvFlags">298</int>
-							<string key="NSFrame">{{20, 116}, {280, 31}}</string>
+							<string key="NSFrame">{{20, 144}, {280, 31}}</string>
 							<reference key="NSSuperview" ref="369779035"/>
 							<bool key="IBUIOpaque">NO</bool>
 							<bool key="IBUIClipsSubviews">YES</bool>
 							<bool key="IBUIUserInteractionEnabled">NO</bool>
 							<string key="IBUIText">August 22, 1977</string>
-							<object class="NSFont" key="IBUIFont" id="689633913">
+							<object class="NSFont" key="IBUIFont" id="400932577">
 								<string key="NSName">HelveticaNeue-Bold</string>
-								<double key="NSSize">2.400000e+01</double>
+								<double key="NSSize">2.100000e+01</double>
 								<int key="NSfFlags">16</int>
 							</object>
 							<reference key="IBUITextColor" ref="272138585"/>
@@ -159,13 +159,13 @@
 						<object class="IBUILabel" id="153587046">
 							<reference key="NSNextResponder" ref="369779035"/>
 							<int key="NSvFlags">298</int>
-							<string key="NSFrame">{{20, 144}, {280, 31}}</string>
+							<string key="NSFrame">{{20, 118}, {280, 31}}</string>
 							<reference key="NSSuperview" ref="369779035"/>
 							<bool key="IBUIOpaque">NO</bool>
 							<bool key="IBUIClipsSubviews">YES</bool>
 							<bool key="IBUIUserInteractionEnabled">NO</bool>
 							<string key="IBUIText">Brooklyn, NY</string>
-							<reference key="IBUIFont" ref="689633913"/>
+							<reference key="IBUIFont" ref="400932577"/>
 							<object class="NSColor" key="IBUITextColor">
 								<int key="NSColorSpace">3</int>
 								<bytes key="NSWhite">MC42MDAwMDAwMgA</bytes>
@@ -835,7 +835,7 @@ bWVyLgo</string>
 			</object>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
-		<string key="IBDocument.LastKnownRelativeProjectPath">Local Time.xcodeproj</string>
+		<string key="IBDocument.LastKnownRelativeProjectPath">LocalTime.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<string key="IBCocoaTouchPluginVersion">3.1</string>
 	</data>

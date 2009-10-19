@@ -32,10 +32,14 @@
     // TODO check again after a while in case they're on the move
     [locationManager stopUpdatingLocation];
 	
+#ifdef DEBUG
+	/*
 	// XXX New York
 	const double lon = -74.00628;
 	const double lat = 40.726499;
 	newLocation = [[[CLLocation alloc] initWithLatitude:lat longitude:lon] autorelease];
+	*/
+#endif
 	
 	mainViewController.location = newLocation;
 	

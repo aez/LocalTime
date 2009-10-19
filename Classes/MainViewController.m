@@ -192,11 +192,13 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
 		double dayScale = 12.0 / daylen;
 		double nightScale = daylen / 12.0;
 		
-		double hour = tm->tm_hour + tm->tm_min / 60.0;
+		double hour = tm->tm_hour + (tm->tm_min / 60.0) + (tm->tm_sec / 3600.0);
 		double solarHour;
+		
 		if(hour < rise) {
-			// scaled time since midnight
-			solarHour = hour * nightScale;
+			// scaled time since sunset
+			// TODO should be previous set
+			solarHour = -6 + (hour + 24 - set) * nightScale;
 		} else if(hour < set) {
 			// 6:00 AM plus scaled time since sunrise
 			solarHour = 6 + (hour - rise) * dayScale;
@@ -205,6 +207,8 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
 			solarHour = 18 + (hour - set) * nightScale;
 		}
 		
+		// solarHour may be < 0 or > 24, tm struct takes care of it
+		// TODO verify that this happens with strftime
 		tm->tm_hour = (int)solarHour;
 		tm->tm_min = (int)round(solarHour*60) % 60;
 		
@@ -227,9 +231,9 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
 		int dayLengthHours = (int)daylen;
 		int dayLengthMinutes = (int)round(daylen*60) % 60;
 		if(dayLengthMinutes == 0) {
-			dayScaleLabel.text = [NSString stringWithFormat:@"%d hours %d minutes in a day", dayLengthHours, dayLengthMinutes];
-		} else {
 			dayScaleLabel.text = [NSString stringWithFormat:@"%d hours in a day", dayLengthHours];
+		} else {
+			dayScaleLabel.text = [NSString stringWithFormat:@"%d hours %d minutes in a day", dayLengthHours, dayLengthMinutes];
 		}
 	} else {
 		timeLabel.text = @"Loading…";

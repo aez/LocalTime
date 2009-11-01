@@ -20,28 +20,25 @@
 
 @implementation MainViewController
 
-@synthesize location=_location;
-
 - (void)viewDidLoad;
 {
-	_timeFormatter = [[NSDateFormatter alloc] init];
-	_timeFormatter.dateStyle = NSDateFormatterNoStyle;
-	_timeFormatter.timeStyle = NSDateFormatterShortStyle;
-	
-	_dateFormatter = [[NSDateFormatter alloc] init];
-	_dateFormatter.dateStyle = NSDateFormatterLongStyle;
-	_dateFormatter.timeStyle = NSDateFormatterNoStyle;
-	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	if([defaults doubleForKey:@"latitude"]) {
-		CLLocation *savedLocation = [[[CLLocation alloc] initWithLatitude:[defaults doubleForKey:@"latitude"] longitude:[defaults doubleForKey:@"longitude"]] autorelease];
-		// TODO do something with savedLocation
-		_location = [savedLocation retain];
+	
+	double savedLatitude = [defaults doubleForKey:@"latitude"];
+	double savedLongitude = [defaults doubleForKey:@"longitude"];
+	if(savedLatitude && savedLongitude) {
+		lastLocation = [[CLLocation alloc] initWithLatitude:savedLatitude longitude:savedLongitude];
 	}
+	
+	lastPlaceName = [defaults stringForKey:@"lastPlaceName"];
+	
+	locationManager = [[CLLocationManager alloc] init];
+	locationManager.delegate = self;
+	[locationManager startUpdatingLocation];
 	
 	[self.view addSubview:infoView];
 	infoView.frame = CGRectMake(0, self.view.frame.size.height - 50, infoView.frame.size.width, infoView.frame.size.height);
-
+	
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
@@ -50,7 +47,7 @@
 	// TODO update geocoded location, but not as often as updating time
 	geocoder = [[AZGeocoder alloc] init];
 	geocoder.delegate = self;
-	[geocoder findNameForLocation:_location];
+	[geocoder findNameForLocation:lastLocation];
 
     ticker = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(tick:) userInfo:nil repeats:YES];
 	[self updateDisplay];
@@ -107,24 +104,51 @@
 }
 
 
+- (void)locationManager:(CLLocationManager *)manager
+	didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation;
+{
+    NSLog(@"got location %f %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
+    // TODO check again after a while in case they're on the move
+    [locationManager stopUpdatingLocation];
+	
+#ifdef DEBUG
+	// XXX New York
+	const double lon = -74.00628;
+	const double lat = 40.726499;
+	newLocation = [[[CLLocation alloc] initWithLatitude:lat longitude:lon] autorelease];
+#endif
+	
+	[lastLocation release];
+	lastLocation = [newLocation copy];
+	
+	[[NSUserDefaults standardUserDefaults] setDouble:lastLocation.coordinate.latitude forKey:@"latitude"];
+	[[NSUserDefaults standardUserDefaults] setDouble:lastLocation.coordinate.longitude forKey:@"longitude"];
+	
+	[geocoder findNameForLocation:lastLocation];
+	[self updateDisplay];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error;
+{
+    NSLog(@"location failed: %@", error);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't determine location" message:[error description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+}
+
 - (void)geocoder:(AZGeocoder *)geocoder didFindName:(NSString *)name forLocation:(CLLocation *)location;
 {
+	[lastPlaceName release];
+	lastPlaceName = [name copy];
+	
+	[[NSUserDefaults standardUserDefaults] setObject:lastPlaceName forKey:@"lastPlaceName"];
+	
 	[self updateDisplay];
 }
 
 - (void)geocoder:(AZGeocoder *)geocoder didFailWithError:(NSError *)error;
 {
 	// TODO implement
-}
-
-- (void)setLocation:(CLLocation *)location;
-{
-	[_location autorelease];
-	_location = location;
-	[_location retain];
-	
-	[self updateDisplay];
-	[geocoder findNameForLocation:_location];
 }
 
 - (void)tick:(NSTimer *)timer;
@@ -136,9 +160,9 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
 
 - (void)updateDisplay;
 {
-	if(_location) {
-		const double lon = _location.coordinate.longitude;
-		const double lat = _location.coordinate.latitude;
+	if(lastLocation) {
+		const double lon = lastLocation.coordinate.longitude;
+		const double lat = lastLocation.coordinate.latitude;
 		
 		int year,month,day;
 		double daylen, civlen, nautlen, astrlen;
@@ -217,7 +241,8 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
 		timeLabel.text = [[NSString stringWithCString:s encoding:NSUTF8StringEncoding] lowercaseString];
 		strftime(s, 1024, "%A, %b %e %G", tm);
 		dateLabel.text = [NSString stringWithCString:s encoding:NSUTF8StringEncoding];
-		locationLabel.text = geocoder.placeName ? geocoder.placeName : @"";
+		
+		locationLabel.text = lastPlaceName ? lastPlaceName : @"";
 
 		tm->tm_hour = (int)rise;
 		tm->tm_min = (int)round(rise*60) % 60;
@@ -235,35 +260,6 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
 		} else {
 			dayScaleLabel.text = [NSString stringWithFormat:@"%d hours %d minutes in a day", dayLengthHours, dayLengthMinutes];
 		}
-	} else {
-		timeLabel.text = @"Loading…";
-		dateLabel.text = @"";
-		locationLabel.text = @"";
-		sunriseLabel.text = @"";
-		sunsetLabel.text = @"";
-		dayScaleLabel.text = @"";
-	}
-}
-
-
-- (void)xxxupdateDisplay;
-{
-	if(_location) {
-		float lon = _location.coordinate.longitude;
-		float lat = _location.coordinate.latitude;
-		
-		NSDate *date = [NSDate date];
-		NSDate *localDate = [date localTimeForLongitude:lon latitude:lat];
-		timeLabel.text = [[_timeFormatter stringFromDate:localDate] lowercaseString];
-		dateLabel.text = [_dateFormatter stringFromDate:localDate];
-		locationLabel.text = geocoder.placeName ? geocoder.placeName : @"";
-		
-		NSDate *sunrise = [date sunriseAtLongitude:lon latitude:lat];
-		NSDate *sunset = [date sunsetAtLongitude:lon latitude:lat];
-		sunriseLabel.text = [NSString stringWithFormat:@"Sunrise %@", [_timeFormatter stringFromDate:sunrise]];
-		sunsetLabel.text = [NSString stringWithFormat:@"Sunset %@", [_timeFormatter stringFromDate:sunset]];
-		float dayLength = [localDate dayLengthForLongitude:lon latitude:lat];
-		dayScaleLabel.text = [NSString stringWithFormat:@"%2d hours %2d minutes in a day", (int)dayLength, (int)(dayLength * 100) % 60];
 	} else {
 		timeLabel.text = @"Loading…";
 		dateLabel.text = @"";
@@ -306,18 +302,17 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
 }
 
 - (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-	// Release anything that's not essential, such as cached data
+	[super didReceiveMemoryWarning];
 }
 
 - (void)dealloc {
 	[[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
 	
     [ticker invalidate];
-	[_location release];
+	[locationManager release];
 	
-	[_dateFormatter release];
-	[_timeFormatter release];
+	[lastLocation release];
+	[lastPlaceName release];
 	
 	[super dealloc];
 }

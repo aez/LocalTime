@@ -7,15 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
 
 @class MainViewController;
 
-@interface LocalTimeAppDelegate : NSObject <UIApplicationDelegate, CLLocationManagerDelegate> {
+@interface LocalTimeAppDelegate : NSObject <UIApplicationDelegate> {
 	IBOutlet UIWindow *window;
 	IBOutlet MainViewController *mainViewController;
-
-    CLLocationManager *locationManager;
 }
 
 @property (nonatomic, retain) UIWindow *window;

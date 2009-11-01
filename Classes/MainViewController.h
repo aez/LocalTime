@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 #import "AZGeocoder.h"
 
 @class CLLocation;
 
-@interface MainViewController : UIViewController <AZGeocoderDelegate> {
+@interface MainViewController : UIViewController <CLLocationManagerDelegate, AZGeocoderDelegate> {
     IBOutlet UILabel *timeLabel;
     IBOutlet UILabel *dateLabel;
 	IBOutlet UILabel *locationLabel;
@@ -21,25 +22,22 @@
 	IBOutlet UILabel *dayScaleLabel;
 	IBOutlet UIView *infoView;
 	
-	NSDateFormatter *_timeFormatter;
-	NSDateFormatter *_dateFormatter;
     NSTimer *ticker;
 	
-	CLLocation *_location;
+    CLLocationManager *locationManager;
 	AZGeocoder *geocoder;
+	
+	CLLocation *lastLocation;
+	NSString *lastPlaceName;
 }
-
-//typedef CFStringRef (*ABActionGetPropertyCallback)(void);
-
-@property(nonatomic, retain) CLLocation *location;
 
 // internal
 
 - (void)tick:(NSTimer *)timer;
 - (void)updateDisplay;
 
+- (void)toggleInfo:(id)sender;
 - (void)showInfo;
 - (void)hideInfo;
-- (void)toggleInfo:(id)sender;
 
 @end

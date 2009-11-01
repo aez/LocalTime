@@ -15,47 +15,11 @@
 @synthesize mainViewController;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	locationManager = [[CLLocationManager alloc] init];
-	locationManager.delegate = self;
-	[locationManager startUpdatingLocation];
-	
-	//[window addSubview:[navController view]];
 	[window addSubview:mainViewController.view];
 	[window makeKeyAndVisible];
 }
 
-- (void)locationManager:(CLLocationManager *)manager
-	didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation;
-{
-    NSLog(@"got location %f %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
-    // TODO check again after a while in case they're on the move
-    [locationManager stopUpdatingLocation];
-	
-#ifdef DEBUG
-	/*
-	// XXX New York
-	const double lon = -74.00628;
-	const double lat = 40.726499;
-	newLocation = [[[CLLocation alloc] initWithLatitude:lat longitude:lon] autorelease];
-	*/
-#endif
-	
-	mainViewController.location = newLocation;
-	
-	[[NSUserDefaults standardUserDefaults] setDouble:newLocation.coordinate.latitude forKey:@"latitude"];
-	[[NSUserDefaults standardUserDefaults] setDouble:newLocation.coordinate.longitude forKey:@"longitude"];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error;
-{
-    NSLog(@"location failed: %@", error);
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't determine location" message:[error description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
-}
-
 - (void)dealloc {
-	[locationManager release];
 	[window release];
 	[super dealloc];
 }

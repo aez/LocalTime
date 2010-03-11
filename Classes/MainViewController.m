@@ -164,6 +164,8 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
 		const double lon = lastLocation.coordinate.longitude;
 		const double lat = lastLocation.coordinate.latitude;
 		
+		// TODO break this into testable units
+		
 		int year,month,day;
 		double daylen, civlen, nautlen, astrlen;
 		double rise, set, civ_start, civ_end, naut_start, naut_end,

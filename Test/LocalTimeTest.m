@@ -26,6 +26,33 @@
 	[calendar release];
 }
 
+- (void)testTimeFuzz;
+{
+	NSDate *now = [NSDate date];
+	
+	const NSTimeInterval step = 13;
+	NSTimeInterval t = [now timeIntervalSinceReferenceDate];
+	NSTimeInterval tPrev = t - step*0.5;
+	NSTimeInterval end = t + (1*60*60*25);
+	while(t < end) {
+		now = [NSDate dateWithTimeIntervalSinceReferenceDate:t];
+		
+		NSDate *localNow = [now localTimeForLongitude:lon latitude:lat];
+		
+		NSDate *rise = [now sunriseAtLongitude:lat latitude:lon];
+		NSDate *set = [now sunsetAtLongitude:lat latitude:lon];
+		
+		NSDate *localRise = [rise localTimeForLongitude:lon latitude:lat];
+		NSDate *localSet = [set localTimeForLongitude:lon latitude:lat];
+		
+		STAssertTrue(t > tPrev, @"time is going backwards");
+		STAssertTrue(t < (tPrev + step*2), @"time is going too fast");
+		
+		tPrev = t;
+		t += step;
+	}
+}
+
 - (void)testSunriseSunset;
 {
 	// TODO Saff squeeze - shouldn't sunrise and sunset be at 6?

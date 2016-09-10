@@ -25,10 +25,10 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
 {
 	NSCalendar *gmtCalendar = [NSCalendar currentCalendar];
     [gmtCalendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-    NSDateComponents *d = [gmtCalendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:self];
+    NSDateComponents *d = [gmtCalendar components:NSCalendarUnitDay|NSCalendarUnitMonth|NSCalendarUnitYear fromDate:self];
 
     double riseHour, setHour;
-    sun_rise_set([d year], [d month], [d day], lon, lat, &riseHour, &setHour);
+    sun_rise_set((int)[d year], (int)[d month], (int)[d day], lon, lat, &riseHour, &setHour);
 
 	// XXX is this working?
 	[d setHour:riseHour];
@@ -41,10 +41,10 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
 {
 	NSCalendar *utcCalendar = [NSCalendar currentCalendar];
     [utcCalendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-    NSDateComponents *d = [utcCalendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:self];
+    NSDateComponents *d = [utcCalendar components:NSCalendarUnitDay|NSCalendarUnitMonth|NSCalendarUnitYear fromDate:self];
 	
     double riseHour, setHour;
-    sun_rise_set([d year], [d month], [d day], lon, lat, &riseHour, &setHour);
+    sun_rise_set((int)[d year], (int)[d month], (int)[d day], lon, lat, &riseHour, &setHour);
 	
 	[d setHour:setHour];
 	[d setMinute:fmod(setHour*60, 60)];
@@ -63,8 +63,8 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
 {
     NSCalendar *gmtCalendar = [NSCalendar currentCalendar];
     [gmtCalendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-    NSDateComponents *d = [gmtCalendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:self];
-	return day_length([d year], [d month], [d day], lon, lat);
+    NSDateComponents *d = [gmtCalendar components:NSCalendarUnitDay|NSCalendarUnitMonth|NSCalendarUnitYear fromDate:self];
+	return day_length((int)[d year], (int)[d month], (int)[d day], lon, lat);
 }
 
 - (float)dayScaleForLongitude:(float)lon latitude:(float)lat;
@@ -72,7 +72,7 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
     NSCalendar *gmtCalendar = [NSCalendar currentCalendar];
     [gmtCalendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
 	
-    NSDateComponents *d = [gmtCalendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:self];
+    NSDateComponents *d = [gmtCalendar components:NSCalendarUnitDay|NSCalendarUnitMonth|NSCalendarUnitYear fromDate:self];
 	
 	double dayLength = day_length([d year], [d month], [d day], lon, lat);
     // dayScale is > 1 in summer - this is "how many UTC seconds in one local second"
@@ -86,7 +86,7 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
     NSCalendar *gmtCalendar = [NSCalendar currentCalendar];
     [gmtCalendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
 
-    NSDateComponents *d = [gmtCalendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:self];
+    NSDateComponents *d = [gmtCalendar components:NSCalendarUnitDay|NSCalendarUnitMonth|NSCalendarUnitYear fromDate:self];
 
     // sunriseset works in units of hours in universal time
     double riseHour, setHour;

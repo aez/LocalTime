@@ -61,7 +61,6 @@
 
 - (void)webServiceResponse:(NSData *)data;
 {
-	NSString *s = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
 	[parser setDelegate:self];
 	[parser parse];

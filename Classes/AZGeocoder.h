@@ -11,7 +11,7 @@
 @class CLLocation;
 @protocol AZGeocoderDelegate;
 
-@interface AZGeocoder : NSObject {
+@interface AZGeocoder : NSObject <NSXMLParserDelegate> {
 @private
 	id _delegate;
 	CLLocation *_location;

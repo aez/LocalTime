@@ -178,7 +178,7 @@ int test_sunriset()
 	[df setTimeStyle:NSDateFormatterShortStyle];
 	
 	NSDate *now = [NSDate date];
-	now = [NSDate dateWithNaturalLanguageString:@"16 sep 2009 5:00 am"];
+    now = [NSDate dateWithTimeIntervalSince1970:0];
 	
 	NSDate *rise = [now sunriseAtLatitude:lat longitude:lon];
 	NSDate *set = [now sunsetAtLatitude:lat longitude:lon];

@@ -14,9 +14,11 @@
 @synthesize window;
 @synthesize mainViewController;
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {
-	[window addSubview:mainViewController.view];
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+//	[window addSubview:mainViewController.view];
+    [window setRootViewController:mainViewController];
 	[window makeKeyAndVisible];
+    return YES;
 }
 
 - (void)dealloc {

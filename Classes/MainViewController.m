@@ -22,6 +22,8 @@
 
 - (void)viewDidLoad;
 {
+    [super viewDidLoad];
+    
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
 	double savedLatitude = [defaults doubleForKey:@"latitude"];
@@ -32,14 +34,25 @@
 	
 	lastPlaceName = [defaults stringForKey:@"lastPlaceName"];
 	
+    NSLog(@"Location services enabled? %d", [CLLocationManager locationServicesEnabled]);
+    if(![CLLocationManager locationServicesEnabled]) {
+        UIAlertView *servicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Location Services Disabled" message:@"You currently have all location services for this device disabled. If you proceed, you will be showing past informations. To enable, Settings->Location->location services->on" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:@"Continue",nil];
+        [servicesDisabledAlert show];
+        [servicesDisabledAlert setDelegate:self];
+    }
 	locationManager = [[CLLocationManager alloc] init];
 	locationManager.delegate = self;
-	[locationManager startUpdatingLocation];
+    locationManager.activityType = CLActivityTypeOther;
+    locationManager.distanceFilter = 1000;
+    locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+    [locationManager requestWhenInUseAuthorization];
+    [locationManager startUpdatingLocation];
+    [locationManager startMonitoringSignificantLocationChanges];
 	
 	[self.view addSubview:infoView];
 	infoView.frame = CGRectMake(0, self.view.frame.size.height - 50, infoView.frame.size.width, infoView.frame.size.height);
 	
-	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 	[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -50,7 +63,7 @@
 	[geocoder findNameForLocation:lastLocation];
 
     ticker = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(tick:) userInfo:nil repeats:YES];
-	[self updateDisplay];
+    [self updateDisplay];
 }
 
 - (void)deviceOrientationDidChange:(NSNotification *)notification;
@@ -61,10 +74,10 @@
 	UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
 	
 	if(UIDeviceOrientationIsPortrait(orientation)) {
-		[[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 	} else if(UIDeviceOrientationIsLandscape(orientation)) {
 		[self hideInfo];
-		[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
+		[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
 	}
 	
 	CGAffineTransform t = CGAffineTransformIdentity;
@@ -103,6 +116,18 @@
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations;
+{
+    NSLog(@"didUpdateLocations");
+    
+    [lastLocation release];
+    lastLocation = [[locations lastObject] copy];
+    [geocoder findNameForLocation:lastLocation];
+
+    [self updateDisplay];
+}
+
 
 - (void)locationManager:(CLLocationManager *)manager
 	didUpdateToLocation:(CLLocation *)newLocation
@@ -132,8 +157,8 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error;
 {
     NSLog(@"location failed: %@", error);
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't determine location" message:[error description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't determine location" message:[error description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//    [alert show];
 }
 
 - (void)geocoder:(AZGeocoder *)geocoder didFindName:(NSString *)name forLocation:(CLLocation *)location;
@@ -160,6 +185,8 @@ static const double SECONDS_PER_HOUR = (60.0*60.0);
 
 - (void)updateDisplay;
 {
+    NSLog(@"updateDisplay...");
+    
 	if(lastLocation) {
 		const double lon = lastLocation.coordinate.longitude;
 		const double lat = lastLocation.coordinate.latitude;

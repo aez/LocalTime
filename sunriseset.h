@@ -80,10 +80,10 @@ __sunriset__( year, month, day, lon, lat, -18.0, 0, start, end )
 
 /* Function prototypes */
 
-double __daylen__( int year, int month, int day, double lon, double lat,
+double __daylen__( long year, long month, long day, double lon, double lat,
                   double altit, int upper_limb );
 
-int __sunriset__( int year, int month, int day, double lon, double lat,
+int __sunriset__( long year, long month, long day, double lon, double lat,
                  double altit, int upper_limb, double *rise, double *set );
 
 void sunpos( double d, double *lon, double *r );

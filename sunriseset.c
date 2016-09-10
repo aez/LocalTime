@@ -160,7 +160,7 @@ void main(void)
 
 /* The "workhorse" function for sun rise/set times */
 
-int __sunriset__( int year, int month, int day, double lon, double lat,
+int __sunriset__( long year, long month, long day, double lon, double lat,
                  double altit, int upper_limb, double *trise, double *tset )
 /***************************************************************************/
 /* Note: year,month,date = calendar date, 1801-2099 only.             */
@@ -248,7 +248,7 @@ int __sunriset__( int year, int month, int day, double lon, double lat,
 /* The "workhorse" function */
 
 
-double __daylen__( int year, int month, int day, double lon, double lat,
+double __daylen__( long year, long month, long day, double lon, double lat,
                   double altit, int upper_limb )
 /**********************************************************************/
 /* Note: year,month,date = calendar date, 1801-2099 only.             */
